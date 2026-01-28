@@ -10,6 +10,7 @@ import (
 func main() {
 	titleFlag := flag.Bool("title", false, "shows only the page title")
 	linksFlag := flag.Bool("links", false, "shows only the links on the page")
+	selectorFlag := flag.String("selector", "", "Scrape elements by css selector")
 	flag.Parse()
 
 	args := flag.Args()
@@ -19,6 +20,22 @@ func main() {
 	}
 
 	url := args[0]
+
+	if *selectorFlag != "" {
+		results, err := scraper.ScrapeBySelector(url, *selectorFlag)
+		if err != nil {
+			fmt.Println("error scraping by selector :", err)
+			os.Exit(1)
+		}
+
+		fmt.Printf("Result for selector \"%s\":\n\n", *selectorFlag)
+		for i, r := range results {
+			fmt.Printf("%d. %s\n", i+1, r)
+		}
+
+		fmt.Printf("\nTotal matches : %d\n", len(results))
+		return
+	}
 
 	result, err := scraper.Scrape(url)
 	if err != nil {

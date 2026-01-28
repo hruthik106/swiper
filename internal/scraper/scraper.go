@@ -58,3 +58,37 @@ func makeAbsolute(base, link string) string {
 	}
 	return base + "/" + link
 }
+
+func ScrapeBySelector(url, selector string) ([]string, error) {
+	client := &http.Client{}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("User-Agent", "swiper/2.0")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var results []string
+	doc.Find(selector).Each(func(i int, s *goquery.Selection) {
+		text := strings.TrimSpace(s.Text())
+		if text != "" {
+			results = append(results, text)
+		}
+	})
+
+	return results, nil
+
+}
