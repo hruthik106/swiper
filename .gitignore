@@ -1,0 +1,16 @@
+# Go binaries
+/swiper
+*.exe
+*.out
+
+# Output files
+*.csv
+*.json
+*.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Go build cache (optional)
+bin/

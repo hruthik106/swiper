@@ -3,21 +3,21 @@ package fileformatter
 import (
 	"encoding/csv"
 	"encoding/json"
-	"os"
+	"io"
 )
 
-func OutputAsJSON(data any) error {
-	enc := json.NewEncoder(os.Stdout)
+func OutputAsJSON(w io.Writer, data any) error {
+	enc := json.NewEncoder(w)
 	enc.SetIndent("", "  ")
 	return enc.Encode(data)
 }
 
-func OutputAsCSV(data []string) error {
-	writer := csv.NewWriter(os.Stdout)
+func OutputAsCSV(w io.Writer, records []string) error {
+	writer := csv.NewWriter(w)
 	defer writer.Flush()
 
-	for _, d := range data {
-		if err := writer.Write([]string{d}); err != nil {
+	for _, r := range records {
+		if err := writer.Write([]string{r}); err != nil {
 			return err
 		}
 	}
