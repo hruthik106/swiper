@@ -18,7 +18,7 @@ directly from the command line.
 ### Install using go install (recommended)
 
 ```bash
-go install github.com/hruthik106/swiper/cmd/swiper@latest
+go install github.com/hruthik106/swiper/cmd/swiper@v1.0.1
 ```
 
 ### Build from source
