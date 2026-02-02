@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"swiper/internal/fileformatter"
-	"swiper/internal/scraper"
-	"swiper/internal/version"
+
+	"github.com/hruthik106/swiper/internal/fileformatter"
+	"github.com/hruthik106/swiper/internal/scraper"
+	"github.com/hruthik106/swiper/internal/version"
 )
 
 func main() {
