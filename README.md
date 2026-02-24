@@ -1,16 +1,16 @@
 # **Swiper**
 
-Swiper is a fast and simple **web scraping CLI tool written in Go**.
-It allows you to extract titles, links, and custom HTML elements
-directly from the command line.
+Swiper is a fast, lightweight **web data extraction CLI written in Go**.
+It lets you quickly extract page titles, links, and custom HTML elements directly from the terminal..
 
 ## Features
 
-- Scrape page titles
-- Extract all links
+- Extract page titles
+- Extract all links from a page
 - Scrape elements using CSS selectors
 - Output in plain text, JSON, or CSV
-- Write output to a file using `--out`
+- Save results to a file with --out
+- Custom User-Agent support
 - Clean, modular Go project structure
 
 ## Installation
@@ -18,7 +18,7 @@ directly from the command line.
 ### Install using go install (recommended)
 
 ```bash
-go install github.com/hruthik106/swiper/cmd/swiper@v1.0.1
+go install github.com/hruthik106/swiper/cmd/swiper@latest
 ```
 
 ### Build from source
@@ -77,6 +77,11 @@ swiper --links --csv https://example.com
 swiper --links --csv --out links.csv https://example.com
 ```
 
+#### Custom User-Agent
+```bash
+swiper --title --ua "Mozilla/5.0" https://example.com
+```
+
 ## Flags
 
 | Flags | Description |
@@ -87,6 +92,7 @@ swiper --links --csv --out links.csv https://example.com
 | --json | Output as JSON |
 | --csv | Output as CSV |
 | --out | Write output to file |
+| --ua|Override HTTP User-Agent|
 | --version | Show version |
 
 ## Testing

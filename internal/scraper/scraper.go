@@ -12,7 +12,7 @@ type Result struct {
 	Links []string
 }
 
-func Scrape(url string) (*Result, error) {
+func Scrape(url, userAgent string) (*Result, error) {
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -20,7 +20,11 @@ func Scrape(url string) (*Result, error) {
 		return nil, err
 	}
 
-	req.Header.Set("User-Agent", "Swiper/1.0")
+	if userAgent == "" {
+		userAgent = "swiper/2.0"
+	}
+
+	req.Header.Set("User-Agent", userAgent)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -59,15 +63,18 @@ func makeAbsolute(base, link string) string {
 	return base + "/" + link
 }
 
-func ScrapeBySelector(url, selector string) ([]string, error) {
+func ScrapeBySelector(url, selector, userAgent string) ([]string, error) {
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
+	if userAgent == "" {
+		userAgent = "swiper/2.0"
+	}
 
-	req.Header.Set("User-Agent", "swiper/2.0")
+	req.Header.Set("User-Agent", userAgent)
 
 	resp, err := client.Do(req)
 	if err != nil {

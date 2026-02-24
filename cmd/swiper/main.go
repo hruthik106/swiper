@@ -25,6 +25,7 @@ func main() {
 	selectorFlag := flag.String("selector", "", "Scrape elements by css selector")
 	outfile := flag.String("out", "", "output the result into a file")
 	versonflag := flag.Bool("version", false, "shows the version of swiper")
+	ua := flag.String("ua", "", "custom User-Agent header value")
 
 	flag.Parse()
 	writer, cleanup, err := getWriter(*outfile)
@@ -49,7 +50,7 @@ func main() {
 	}
 
 	if *selectorFlag != "" {
-		results, err := scraper.ScrapeBySelector(url, *selectorFlag)
+		results, err := scraper.ScrapeBySelector(url, *selectorFlag, *ua)
 		if err != nil {
 			fmt.Fprintln(writer, "error scraping by selector :", err)
 			os.Exit(1)
@@ -86,7 +87,7 @@ func main() {
 		return
 	}
 
-	result, err := scraper.Scrape(url)
+	result, err := scraper.Scrape(url, *ua)
 	if err != nil {
 		fmt.Fprintln(writer, "error scraping the url :", err)
 		os.Exit(1)
